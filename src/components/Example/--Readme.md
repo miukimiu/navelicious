@@ -1,0 +1,5 @@
+Basic NavSection:
+
+```jsx
+<Example />
+```

@@ -1,0 +1,21 @@
+{
+  "editor.formatOnSave": true,
+  // "[javascript]": {
+  //     "editor.formatOnSave": false,
+  // },
+  // "eslint.autoFixOnSave": true,
+  // "eslint.alwaysShowStatus": true,
+  // "prettier.disableLanguages": [
+  //     "jsx", "js"
+  // ],
+  // "files.autoSave": "onFocusChange",
+  "editor.minimap.enabled": true,
+  "git.autofetch": true,
+  "workbench.colorTheme": "Night Owl",
+  "materialTheme.fixIconsRunning": false,
+  "workbench.iconTheme": "eq-material-theme-icons-palenight",
+  "window.zoomLevel": 0,
+  "gitlens.advanced.messages": {
+    "suppressShowKeyBindingsNotice": true
+  }
+}
