@@ -3,8 +3,12 @@ import styled from "styled-components";
 import DevelopersDropdown from "../ExampleContent/DevelopersDropdown";
 import ProductsDropdown from "../ExampleContent/ProductsDropdown";
 import CompanyDropdown from "../ExampleContent/CompanyDropdown";
-import { Navbar, NavbarItem } from "../../index";
-// import Navelicious from "../Navelicious/Navelicious";
+import {
+  Navbar,
+  NavbarSection,
+  NavbarItem,
+  NavbarCustomSection
+} from "../../index";
 
 const AppContainer = styled.div`
   background: #53f;
@@ -17,23 +21,35 @@ const AppContainer = styled.div`
   }
 `;
 
-const navbarConfig = [
-  { title: "Products", dropdown: ProductsDropdown },
-  { title: "Developers", dropdown: DevelopersDropdown },
-  { title: "Company", dropdown: CompanyDropdown },
-  { title: "Just a link", link: "sdas" }
-];
-
 class Navelicious extends Component {
+  logHello = () => {
+    console.log("hello!");
+  };
+
   render() {
     return (
       <AppContainer>
-        <Navbar
-          ease="easeOutExpo"
-          duration={500}
-          dropdownBackground="white"
-          navbarConfig={navbarConfig}
-        />
+        <Navbar justify="space-between">
+          <NavbarCustomSection>Logo</NavbarCustomSection>
+          <NavbarSection
+            ease="easeOutExpo"
+            duration={500}
+            dropdownBackground="white"
+          >
+            <NavbarItem title="Products">
+              <ProductsDropdown />
+            </NavbarItem>
+            <NavbarItem title="Developers">
+              <DevelopersDropdown />
+            </NavbarItem>
+            <NavbarItem title="Company">
+              <CompanyDropdown />
+            </NavbarItem>
+
+            <NavbarItem title="Click" onClick={this.logHello} />
+            <NavbarItem title="Link" linkTo="/" />
+          </NavbarSection>
+        </Navbar>
       </AppContainer>
     );
   }

@@ -487,6 +487,9 @@ class AnimatedNavbar extends Component {
       direction = currentIndex > prevIndex ? "right" : "left";
     }
 
+    console.log("currentIndex", currentIndex);
+    // console.log("index", index);
+
     return (
       <Flipper flipKey={currentIndex} {...tweenConfig}>
         <Navbar onMouseLeave={this.onMouseLeave}>
@@ -503,7 +506,8 @@ class AnimatedNavbar extends Component {
                     animatingOut={this.state.animatingOut}
                     tweenConfig={this.props.tweenConfig}
                   >
-                    <CurrentDropdown />
+                    {/* <CurrentDropdown /> */}
+                    zx`zx
                   </DropdownContainer>
                 )}
               </NavbarItem>
