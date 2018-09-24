@@ -9,6 +9,7 @@ import {
   NavbarItem,
   NavbarCustomSection
 } from "../../index";
+import CreatePortal from "../../core/CreatePortal";
 
 const AppContainer = styled.div`
   background: #53f;
@@ -21,6 +22,14 @@ const AppContainer = styled.div`
   }
 `;
 
+const Logo = styled.div`
+  background-color: aliceblue;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin: 20px;
+`;
+
 class Navelicious extends Component {
   logHello = () => {
     console.log("hello!");
@@ -29,12 +38,15 @@ class Navelicious extends Component {
   render() {
     return (
       <AppContainer>
-        <Navbar justify="space-between">
-          <NavbarCustomSection>Logo</NavbarCustomSection>
+        <Navbar justify="space-between" background="white">
+          <NavbarCustomSection>
+            <Logo />
+          </NavbarCustomSection>
           <NavbarSection
             ease="easeOutExpo"
             duration={500}
             dropdownBackground="white"
+            titleColor="red"
           >
             <NavbarItem title="Products">
               <ProductsDropdown />
@@ -47,7 +59,10 @@ class Navelicious extends Component {
             </NavbarItem>
 
             <NavbarItem title="Click" onClick={this.logHello} />
-            <NavbarItem title="Link" linkTo="/" />
+            <NavbarItem title="this is a very long Link" linkTo="/" />
+            <NavbarItem title="this another very long Link" linkTo="/" />
+            <NavbarItem title="this another very long Link" linkTo="/" />
+            <NavbarItem title="this another very long Link" linkTo="/" />
           </NavbarSection>
         </Navbar>
       </AppContainer>

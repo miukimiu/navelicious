@@ -28,6 +28,7 @@
     "prop-types": "^15.6.1",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
+    "react-horizontal-scrolling-menu": "^0.2.7",
     "react-styleguidist": "^7.1.0"
   },
   "devDependencies": {

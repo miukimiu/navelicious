@@ -1,11 +1,13 @@
 import React, { Component, Children } from "react";
 import PropTypes from "prop-types";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { Flipper, Flipped } from "react-flip-toolkit";
 import NavbarItem from "../NavbarItem/NavbarItem";
+import Slider from "../Slider/Slider";
 
-const NavbarEl = styled.section`
+const NavbarSectionEl = styled.section`
   margin: auto;
+  width: 100%;
 `;
 
 const NavbarList = styled.ul`
@@ -15,11 +17,19 @@ const NavbarList = styled.ul`
   margin: 0;
 `;
 
+const FlipperEl = styled(Flipper)`
+  display: flex;
+  background: aliceblue;
+  flex: 1;
+`;
+
 class NavbarSection extends Component {
   state = {
     activeIndices: [],
     animatingOut: false
   };
+
+  componentDidMount() {}
 
   resetDropdownState = () => {
     this.setState({
@@ -53,7 +63,6 @@ class NavbarSection extends Component {
   };
 
   onMouseEnterLink = event => {
-    console.log("onMouseEnterLink");
     this.setState({
       animatingOut: true
     });
@@ -64,7 +73,13 @@ class NavbarSection extends Component {
   };
 
   render() {
-    const { duration, ease, dropdownBackground } = this.props;
+    const {
+      duration,
+      ease,
+      dropdownBackground,
+      titleColor,
+      className
+    } = this.props;
 
     const tweenConfig = {
       duration: duration,
@@ -88,6 +103,7 @@ class NavbarSection extends Component {
       direction = currentIndex > prevIndex ? "right" : "left";
     }
 
+    // copy props from parent to the children
     const children = React.Children.map(this.props.children, (child, index) => {
       // console.log("child", child);
       // console.log("index", index);
@@ -96,6 +112,7 @@ class NavbarSection extends Component {
         currentIndex,
         link: child.props.link,
         dropdownBackground,
+        titleColor,
         onMouseEnter: this.onMouseEnter,
         onMouseEnterLink: this.onMouseEnterLink
       });
@@ -106,11 +123,13 @@ class NavbarSection extends Component {
     // console.log("index", index);
 
     return (
-      <Flipper flipKey={currentIndex} {...tweenConfig}>
-        <NavbarEl onMouseLeave={this.onMouseLeave}>
-          <NavbarList>{children}</NavbarList>
-        </NavbarEl>
-      </Flipper>
+      <FlipperEl flipKey={currentIndex} {...tweenConfig} className={className}>
+        <NavbarSectionEl onMouseLeave={this.onMouseLeave}>
+          <Slider>{children}</Slider>
+
+          {/* <NavbarList>{children}</NavbarList> */}
+        </NavbarSectionEl>
+      </FlipperEl>
     );
   }
 }
@@ -118,6 +137,7 @@ class NavbarSection extends Component {
 NavbarSection.defaultProps = {
   duration: 500,
   ease: "easeOutExpo",
+  titleColor: "black",
   dropdownBackground: "white",
   direction: "left",
   animatingOut: false
@@ -128,6 +148,7 @@ NavbarSection.propTypes = {
   duration: PropTypes.number,
   ease: PropTypes.string,
   dropdownBackground: PropTypes.string,
+  titleColor: PropTypes.string,
   animatingOut: PropTypes.bool,
   direction: PropTypes.oneOf(["left", "right"]),
   duration: PropTypes.number
