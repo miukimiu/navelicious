@@ -47,6 +47,7 @@ class Navelicious extends Component {
             duration={500}
             dropdownBackground="white"
             titleColor="black"
+            arrowsColor="red"
           >
             <NavbarItem title="Products">
               <ProductsDropdown />
@@ -54,7 +55,7 @@ class Navelicious extends Component {
             <NavbarItem title="Developers">
               <DevelopersDropdown />
             </NavbarItem>
-            <NavbarItem title="Company">
+            {/* <NavbarItem title="Company">
               <CompanyDropdown />
             </NavbarItem>
 
@@ -66,7 +67,7 @@ class Navelicious extends Component {
                 <li>asas</li>
               </ul>
             </NavbarItem>
-            <NavbarItem title="this another very long Link" linkTo="/" />
+            <NavbarItem title="this another very long Link" linkTo="/" /> */}
           </NavbarSection>
         </Navbar>
       </AppContainer>

@@ -2,12 +2,14 @@ import React, { Component, Children } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { Flipper, Flipped } from "react-flip-toolkit";
+import { ThemeProvider } from "../../core/ThemeContext";
 import NavbarItem from "../NavbarItem/NavbarItem";
 import Slider from "../Slider/Slider";
 
 const NavbarSectionEl = styled.section`
   margin: auto;
   width: 100%;
+  position: relative;
 `;
 
 const NavbarList = styled.ul`
@@ -28,8 +30,6 @@ class NavbarSection extends Component {
     activeIndices: [],
     animatingOut: false
   };
-
-  componentDidMount() {}
 
   resetDropdownState = () => {
     this.setState({
@@ -78,8 +78,11 @@ class NavbarSection extends Component {
       ease,
       dropdownBackground,
       titleColor,
-      className
+      className,
+      arrowsColor
     } = this.props;
+
+    const { navArrows } = this.state;
 
     const tweenConfig = {
       duration: duration,
@@ -116,16 +119,18 @@ class NavbarSection extends Component {
       });
     });
 
-    console.log("flipKey", currentIndex);
+    console.log("arrowsColor", arrowsColor);
 
     return (
       <FlipperEl flipKey={currentIndex} {...tweenConfig} className={className}>
-        <NavbarSectionEl
-          onMouseLeave={this.onMouseLeave}
-          id="navelicious-section"
-        >
-          <Slider>{children}</Slider>
-        </NavbarSectionEl>
+        <ThemeProvider value={{ arrowsColor: arrowsColor }}>
+          <NavbarSectionEl
+            onMouseLeave={this.onMouseLeave}
+            id="navelicious-section"
+          >
+            <Slider>{children}</Slider>
+          </NavbarSectionEl>
+        </ThemeProvider>
       </FlipperEl>
     );
   }

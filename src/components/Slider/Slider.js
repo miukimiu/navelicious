@@ -22,7 +22,6 @@ const SliderEl = styled.div`
   .next:hover {
     color: white;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
   }
 `;
 
@@ -38,7 +37,6 @@ const NavbarList = styled.ul`
   align-items: center;
   white-space: nowrap;
   display: inline-flex;
-  width: ${props => (props.width ? "0px" : `100%`)};
 
   li {
     display: inline-flex;
@@ -51,6 +49,10 @@ const BackArrow = styled.div`
   height: 20px;
   background: ${props => props.background};
   z-index: 9999;
+
+  path {
+    fill: ${props => props.color};
+  }
 `;
 
 const NextArrow = styled.div`
@@ -58,11 +60,20 @@ const NextArrow = styled.div`
   width: 20px;
   height: 20px;
   background: ${props => props.background};
+
+  path {
+    fill: ${props => props.color};
+  }
 `;
 
-const LeftArrow = ({ goToPrevSlide, background }) => {
+const LeftArrow = ({ goToPrevSlide, background, color }) => {
   return (
-    <BackArrow className="prev" onClick={goToPrevSlide} background={background}>
+    <BackArrow
+      className="prev"
+      onClick={goToPrevSlide}
+      background={background}
+      color={color}
+    >
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 129 129">
         <path d="m88.6,121.3c0.8,0.8 1.8,1.2 2.9,1.2s2.1-0.4 2.9-1.2c1.6-1.6 1.6-4.2 0-5.8l-51-51 51-51c1.6-1.6 1.6-4.2 0-5.8s-4.2-1.6-5.8,0l-54,53.9c-1.6,1.6-1.6,4.2 0,5.8l54,53.9z" />
       </svg>
@@ -70,9 +81,14 @@ const LeftArrow = ({ goToPrevSlide, background }) => {
   );
 };
 
-const RightArrow = ({ goToNextSlide, background }) => {
+const RightArrow = ({ goToNextSlide, background, color }) => {
   return (
-    <NextArrow className="next" onClick={goToNextSlide} background={background}>
+    <NextArrow
+      className="next"
+      onClick={goToNextSlide}
+      background={background}
+      color={color}
+    >
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 129 129">
         <path d="m40.4,121.3c-0.8,0.8-1.8,1.2-2.9,1.2s-2.1-0.4-2.9-1.2c-1.6-1.6-1.6-4.2 0-5.8l51-51-51-51c-1.6-1.6-1.6-4.2 0-5.8 1.6-1.6 4.2-1.6 5.8,0l53.9,53.9c1.6,1.6 1.6,4.2 0,5.8l-53.9,53.9z" />
       </svg>
@@ -100,7 +116,6 @@ export default class Slider extends Component {
   componentDidMount() {
     // count number of children
     const numberOfChildren = React.Children.count(this.props.children);
-    // console.log("numberOfChildren", numberOfChildren);
 
     this.setState({
       numberOfChildren: numberOfChildren
@@ -148,7 +163,6 @@ export default class Slider extends Component {
   };
 
   goToPrevSlide = () => {
-    console.log("goToPrevSlide");
     // Exiting the method early if we are at the end of the images array.
     // We also want to reset currentIndex and translateValue, so we return
     // to the first image in the array.
@@ -169,12 +183,20 @@ export default class Slider extends Component {
   };
 
   goToNextSlide = () => {
-    console.log("goToNextSlide");
-    // Exiting the method early if we are at the end of the images array.
-    // We also want to reset currentIndex and translateValue, so we return
-    // to the first image in the array.
-    if (this.state.currentIndex === this.state.numberOfChildren) {
-      console.log("currentIndex is equal to numberOfChildren");
+    /* 
+    if last item rigt position is less than right side of container I'm in the end of the slider
+    After that when I click the arrow I want to go back to position 0. So I want to set the 
+    state translateValue to 0 
+    */
+    const sliderArrowRight = document
+      .getElementsByClassName("next")[0]
+      .getBoundingClientRect().left;
+
+    const innerNavList = document
+      .getElementsByClassName("navelicious-navbar-list")[0]
+      .getBoundingClientRect().right;
+
+    if (innerNavList <= sliderArrowRight) {
       return this.setState({
         currentIndex: 0,
         translateValue: 0
@@ -191,17 +213,12 @@ export default class Slider extends Component {
 
   slideWidth = index => {
     // this method calculates the width of the current slide, and then returns it to us.
-    console.log(
-      "slide",
-      document.querySelector(`.navelicious-slide${index}`).clientWidth
-    );
     return document.querySelector(`.navelicious-slide${index}`).clientWidth;
   };
 
   render() {
     const { children } = this.props;
 
-    // console.log("currentIndex", this.state.currentIndex);
     return (
       <ThemeConsumer>
         {context => (
@@ -209,6 +226,7 @@ export default class Slider extends Component {
             <LeftArrow
               goToPrevSlide={this.goToPrevSlide}
               background={context.background}
+              color={context.arrowsColor}
             />
             <NavbarListContainer width={this.state.navbarListWidth}>
               <NavbarList
@@ -225,6 +243,7 @@ export default class Slider extends Component {
             <RightArrow
               goToNextSlide={this.goToNextSlide}
               background={context.background}
+              color={context.arrowsColor}
             />
           </SliderEl>
         )}

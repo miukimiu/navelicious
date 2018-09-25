@@ -18,7 +18,7 @@ const NavbarItemTitle = styled.button`
   font-weight: normal;
   border: none;
   font-size: 16px;
-  padding: 20px;
+  padding: 10px 20px;
   color: ${props => props.titleColor}
   display: flex;
   justify-content: center;
@@ -39,7 +39,7 @@ const NavbarItemLink = styled.a`
   font-family: inherit;
   font-weight: normal;
   font-size: 16px;
-  padding: 20px;
+  padding: 10px 20px;
   color: ${props => props.titleColor};
   display: flex;
   justify-content: center;
@@ -67,9 +67,9 @@ const DropdownRoot = styled.div`
   flex-direction: column;
   align-items: center;
   position: absolute;
+  top: ${props => props.topPos}px;
   left: ${props => props.leftPos}px;
   width: 20px;
-  background: yellow;
 `;
 
 const Caret = styled.div`
@@ -110,26 +110,27 @@ class NavbarItem extends Component {
     this.setItemRef = React.createRef();
   }
 
-  onMouseEnter = event => {
+  onMouseEnter = () => {
+    const { index, onMouseEnter } = this.props;
     this.props.onMouseEnter(this.props.index);
 
     const left = this.setItemRef.current.getBoundingClientRect().left;
-    const top = this.setItemRef.current.getBoundingClientRect().top;
+    const itemHeight = this.setItemRef.current.getBoundingClientRect().height;
 
-    var parentPos = document
-      .getElementsByClassName("navelicious-navbar-list")[0]
-      .getBoundingClientRect().left;
+    // parentPos starts on arrow prev right pos
+    const parentPosLeft = document
+      .getElementsByClassName("prev")[0]
+      .getBoundingClientRect().right;
 
-    var childOffset = left - parentPos;
+    // because absolute position is relative to the parent
+    const childOffsetLeft = left - parentPosLeft;
 
-    const dropdownLeftPos = event.pageX - left;
-
-    // console.log("position dropdownLeftPos *** ", left - parentPos);
+    console.log(itemHeight);
 
     // 60 is the sum of arrow left + arrow right + parent size (20 + 20 + 20)
     this.setState({
-      [`leftPos${this.props.index}`]: left - parentPos + 60,
-      [`topPos${this.props.index}`]: top
+      [`leftPos${this.props.index}`]: childOffsetLeft + 60,
+      [`topPos${this.props.index}`]: itemHeight
     });
   };
 
@@ -156,12 +157,7 @@ class NavbarItem extends Component {
       className
     } = this.props;
 
-    const { leftPos, topPos } = this.state;
-
-    // console.log("leftPos", leftPos);
-    // console.log("topPos", topPos);
-
-    // console.log(this.state);
+    // console.log("this.state", this.state);
 
     return (
       <ThemeConsumer>
