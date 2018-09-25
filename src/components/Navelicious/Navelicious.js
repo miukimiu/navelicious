@@ -46,7 +46,7 @@ class Navelicious extends Component {
             ease="easeOutExpo"
             duration={500}
             dropdownBackground="white"
-            titleColor="red"
+            titleColor="black"
           >
             <NavbarItem title="Products">
               <ProductsDropdown />
@@ -58,10 +58,14 @@ class Navelicious extends Component {
               <CompanyDropdown />
             </NavbarItem>
 
-            <NavbarItem title="Click" onClick={this.logHello} />
-            <NavbarItem title="this is a very long Link" linkTo="/" />
-            <NavbarItem title="this another very long Link" linkTo="/" />
-            <NavbarItem title="this another very long Link" linkTo="/" />
+            <NavbarItem title="On Click" onClick={this.logHello} />
+            <NavbarItem title="Link A" linkTo="/" />
+            <NavbarItem title="A very long Link" linkTo="/" />
+            <NavbarItem title="Example">
+              <ul>
+                <li>asas</li>
+              </ul>
+            </NavbarItem>
             <NavbarItem title="this another very long Link" linkTo="/" />
           </NavbarSection>
         </Navbar>

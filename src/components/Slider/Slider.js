@@ -7,7 +7,6 @@ const SliderEl = styled.div`
   position: relative;
   display: flex;
   align-items: center;
-  background: pink;
   width: 100%;
 
   .prev,
@@ -87,20 +86,22 @@ export default class Slider extends Component {
     super(props);
 
     this.sliderRef = React.createRef();
+    this.navbarListRef = React.createRef();
 
     this.state = {
       currentIndex: 0,
       translateValue: 0,
       numberOfChildren: 0,
       sliderWidth: 0,
-      navbarListWidth: 0
+      navbarListWidth: 0,
+      navbarListLeft: 0
     };
   }
 
   componentDidMount() {
     // count number of children
     const numberOfChildren = React.Children.count(this.props.children);
-    console.log("numberOfChildren", numberOfChildren);
+    // console.log("numberOfChildren", numberOfChildren);
 
     this.setState({
       numberOfChildren: numberOfChildren
@@ -118,20 +119,33 @@ export default class Slider extends Component {
     const sliderRef = this.sliderRef.current;
     const sliderArrowLeft = sliderRef.getElementsByClassName("prev")[0];
     const sliderArrowRight = sliderRef.getElementsByClassName("next")[0];
+    const navbarListLeft = sliderRef.getBoundingClientRect().left;
 
+    /* 
+    first I'm setting the navbarListWidth to Zero because if I try to resize it gets the previous size. 
+    So, if I try to resize the window to a smaller positon it always get the current size and never gets
+    below that. 
+    To solve it, I'm setting the width to zero so I can actualy get the real size of the container.
+    */
     this.setState({
-      navbarListWidth: navbarListWidth
+      navbarListWidth: 0
     });
 
     const navbarListWidth =
       sliderRef.offsetWidth -
       (sliderArrowLeft.offsetWidth + sliderArrowRight.offsetWidth);
 
-    console.log("navbarListWidth", navbarListWidth);
-
-    this.setState({
-      navbarListWidth: navbarListWidth
-    });
+    /* 
+    As you might have noticed the state was first set to zero. 
+    After that I could get the real size of the navbarlistWith and
+    now I can apply it. It need a setTimeout do first get the zero
+    */
+    setTimeout(() => {
+      this.setState({
+        navbarListWidth: navbarListWidth,
+        navbarListLeft: navbarListLeft
+      });
+    }, 1000);
   };
 
   goToPrevSlide = () => {
@@ -188,17 +202,18 @@ export default class Slider extends Component {
   render() {
     const { children } = this.props;
 
-    console.log("currentIndex", this.state.currentIndex);
+    // console.log("currentIndex", this.state.currentIndex);
     return (
       <ThemeConsumer>
         {context => (
-          <SliderEl innerRef={this.sliderRef}>
+          <SliderEl innerRef={this.sliderRef} background={context.background}>
             <LeftArrow
               goToPrevSlide={this.goToPrevSlide}
               background={context.background}
             />
             <NavbarListContainer width={this.state.navbarListWidth}>
               <NavbarList
+                className="navelicious-navbar-list"
                 style={{
                   transform: `translateX(${this.state.translateValue}px)`,
                   transition: "transform ease-out 0.45s"

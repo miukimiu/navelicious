@@ -68,6 +68,8 @@ const DropdownRoot = styled.div`
   align-items: center;
   position: absolute;
   left: ${props => props.leftPos}px;
+  width: 20px;
+  background: yellow;
 `;
 
 const Caret = styled.div`
@@ -89,7 +91,7 @@ const DropdownBackground = styled.div`
   border-radius: 4px;
   overflow: hidden;
   /* delete the width after */
-  min-width: 450px;
+  min-width: 400px;
   min-height: 200px;
   position: relative;
   box-shadow: 0 50px 100px rgba(50, 50, 93, 0.1),
@@ -108,18 +110,24 @@ class NavbarItem extends Component {
     this.setItemRef = React.createRef();
   }
 
-  onMouseEnter = () => {
+  onMouseEnter = event => {
     this.props.onMouseEnter(this.props.index);
 
     const left = this.setItemRef.current.getBoundingClientRect().left;
     const top = this.setItemRef.current.getBoundingClientRect().top;
 
-    const firstTime = true;
+    var parentPos = document
+      .getElementsByClassName("navelicious-navbar-list")[0]
+      .getBoundingClientRect().left;
 
-    // let position: this.setItemRef.current.getBoundingClientRect().left
+    var childOffset = left - parentPos;
+
+    const dropdownLeftPos = event.pageX - left;
+
+    console.log("position dropdownLeftPos *** ", left - parentPos);
 
     this.setState({
-      [`leftPos${this.props.index}`]: left - 400,
+      [`leftPos${this.props.index}`]: left - parentPos + 60,
       [`topPos${this.props.index}`]: top
     });
   };
@@ -127,12 +135,6 @@ class NavbarItem extends Component {
   onMouseEnterLink = () => {
     const left = this.setItemRef.current.getBoundingClientRect().left;
     const top = this.setItemRef.current.getBoundingClientRect().top;
-
-    const firstTime = true;
-
-    console.log("onMouseEnterLink", left, top);
-
-    // let position: this.setItemRef.current.getBoundingClientRect().left
 
     this.setState({
       leftPos: left,
@@ -166,7 +168,7 @@ class NavbarItem extends Component {
     // console.log("leftPos", leftPos);
     // console.log("topPos", topPos);
 
-    console.log(this.state);
+    // console.log(this.state);
 
     return (
       <ThemeConsumer>

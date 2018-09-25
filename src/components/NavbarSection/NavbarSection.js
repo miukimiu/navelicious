@@ -19,7 +19,6 @@ const NavbarList = styled.ul`
 
 const FlipperEl = styled(Flipper)`
   display: flex;
-  background: aliceblue;
   flex: 1;
   position: relative;
 `;
