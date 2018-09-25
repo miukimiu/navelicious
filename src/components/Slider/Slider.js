@@ -150,7 +150,8 @@ export default class Slider extends Component {
     // This will not run if we met the if condition above
     this.setState(prevState => ({
       currentIndex: prevState.currentIndex - 1,
-      translateValue: prevState.translateValue + this.slideWidth()
+      translateValue:
+        prevState.translateValue + this.slideWidth(prevState.currentIndex - 1)
     }));
   };
 
@@ -170,18 +171,24 @@ export default class Slider extends Component {
     // This will not run if we met the if condition above
     this.setState(prevState => ({
       currentIndex: prevState.currentIndex + 1,
-      translateValue: prevState.translateValue + -this.slideWidth()
+      translateValue:
+        prevState.translateValue + -this.slideWidth(prevState.currentIndex)
     }));
   };
 
-  slideWidth = () => {
+  slideWidth = index => {
     // this method calculates the width of the current slide, and then returns it to us.
-
-    return document.querySelector(".slide").clientWidth;
+    console.log(
+      "slide",
+      document.querySelector(`.navelicious-slide${index}`).clientWidth
+    );
+    return document.querySelector(`.navelicious-slide${index}`).clientWidth;
   };
 
   render() {
     const { children } = this.props;
+
+    console.log("currentIndex", this.state.currentIndex);
     return (
       <ThemeConsumer>
         {context => (

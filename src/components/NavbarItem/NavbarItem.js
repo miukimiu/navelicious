@@ -66,9 +66,7 @@ const DropdownRoot = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: relative;
-  top: -${props => props.topPos}px;
-
+  position: absolute;
   left: ${props => props.leftPos}px;
 `;
 
@@ -91,7 +89,7 @@ const DropdownBackground = styled.div`
   border-radius: 4px;
   overflow: hidden;
   /* delete the width after */
-  min-width: 300px;
+  min-width: 450px;
   min-height: 200px;
   position: relative;
   box-shadow: 0 50px 100px rgba(50, 50, 93, 0.1),
@@ -108,37 +106,15 @@ class NavbarItem extends Component {
     };
 
     this.setItemRef = React.createRef();
-
-    // this.focusTextInput = () => {
-    //   console.log("focusTextInput");
-    //   // Focus the text input using the raw DOM API
-    //   // if (this.textItem) this.textItem.focus();
-    // };
   }
 
-  // getElPosition = () => {
-  //   console.log("getElPosition");
-
-  //   console.log(
-  //     " this.setItemRef.getBoundingClientRect()",
-  //     this.setItemRef.current.getBoundingClientRect()
-  //   );
-  // };
-
-  // componentDidMount() {
-  //   // autofocus the input on mount
-  //   this.getElPosition();
-  // }
   onMouseEnter = () => {
     this.props.onMouseEnter(this.props.index);
 
     const left = this.setItemRef.current.getBoundingClientRect().left;
-
     const top = this.setItemRef.current.getBoundingClientRect().top;
 
     const firstTime = true;
-
-    console.log("onMouseEnter", left, top);
 
     // let position: this.setItemRef.current.getBoundingClientRect().left
 
@@ -150,7 +126,6 @@ class NavbarItem extends Component {
 
   onMouseEnterLink = () => {
     const left = this.setItemRef.current.getBoundingClientRect().left;
-
     const top = this.setItemRef.current.getBoundingClientRect().top;
 
     const firstTime = true;
@@ -202,7 +177,7 @@ class NavbarItem extends Component {
                 href={linkTo}
                 onMouseEnter={this.onMouseEnterLink}
                 titleColor={titleColor}
-                className="slide"
+                className={`navelicious-slide${index}`}
                 innerRef={this.setItemRef}
               >
                 {title}
@@ -214,7 +189,7 @@ class NavbarItem extends Component {
                   onFocus={this.onMouseEnter}
                   onClick={onClick}
                   titleColor={titleColor}
-                  className="slide"
+                  className={`navelicious-slide${index}`}
                   innerRef={this.setItemRef}
                 >
                   <React.Fragment>{link && <a>sadsd</a>}</React.Fragment>

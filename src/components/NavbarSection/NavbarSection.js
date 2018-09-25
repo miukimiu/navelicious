@@ -21,6 +21,7 @@ const FlipperEl = styled(Flipper)`
   display: flex;
   background: aliceblue;
   flex: 1;
+  position: relative;
 `;
 
 class NavbarSection extends Component {
@@ -118,13 +119,16 @@ class NavbarSection extends Component {
       });
     });
 
-    // console.log("currentIndex", currentIndex);
+    console.log("flipKey", currentIndex);
     // console.log("prevIndex", prevIndex);
     // console.log("index", index);
 
     return (
       <FlipperEl flipKey={currentIndex} {...tweenConfig} className={className}>
-        <NavbarSectionEl onMouseLeave={this.onMouseLeave}>
+        <NavbarSectionEl
+          onMouseLeave={this.onMouseLeave}
+          id="navelicious-section"
+        >
           <Slider>{children}</Slider>
 
           {/* <NavbarList>{children}</NavbarList> */}

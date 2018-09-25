@@ -6,11 +6,15 @@ class CreatePortal extends React.Component {
     super(props);
     // Create container DOM element and append to DOM.
     this.overlayContainer = document.createElement("div");
-    document.body.appendChild(this.overlayContainer);
+    document
+      .getElementById("navelicious-section")
+      .appendChild(this.overlayContainer);
   }
 
   componentWillUnmount() {
-    document.body.removeChild(this.overlayContainer);
+    document
+      .getElementById("navelicious-section")
+      .removeChild(this.overlayContainer);
   }
 
   render() {
