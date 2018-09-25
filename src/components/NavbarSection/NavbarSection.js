@@ -52,7 +52,7 @@ class NavbarSection extends Component {
     }));
   };
 
-  onMouseLeave = event => {
+  onMouseLeave = () => {
     this.setState({
       animatingOut: true
     });
@@ -62,7 +62,7 @@ class NavbarSection extends Component {
     );
   };
 
-  onMouseEnterLink = event => {
+  onMouseEnterLink = () => {
     this.setState({
       animatingOut: true
     });
@@ -105,8 +105,6 @@ class NavbarSection extends Component {
 
     // copy props from parent to the children
     const children = React.Children.map(this.props.children, (child, index) => {
-      // console.log("child", child);
-      // console.log("index", index);
       return React.cloneElement(child, {
         index: index,
         currentIndex,
@@ -119,8 +117,6 @@ class NavbarSection extends Component {
     });
 
     console.log("flipKey", currentIndex);
-    // console.log("prevIndex", prevIndex);
-    // console.log("index", index);
 
     return (
       <FlipperEl flipKey={currentIndex} {...tweenConfig} className={className}>
@@ -129,8 +125,6 @@ class NavbarSection extends Component {
           id="navelicious-section"
         >
           <Slider>{children}</Slider>
-
-          {/* <NavbarList>{children}</NavbarList> */}
         </NavbarSectionEl>
       </FlipperEl>
     );

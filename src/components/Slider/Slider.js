@@ -28,8 +28,7 @@ const SliderEl = styled.div`
 
 const NavbarListContainer = styled.div`
   width: ${props => props.width}px;
-  overflow-x: auto;
-  overflow-y: hidden;
+  overflow-x: hidden;
 `;
 
 const NavbarList = styled.ul`

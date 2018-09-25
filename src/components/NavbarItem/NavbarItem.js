@@ -124,8 +124,9 @@ class NavbarItem extends Component {
 
     const dropdownLeftPos = event.pageX - left;
 
-    console.log("position dropdownLeftPos *** ", left - parentPos);
+    // console.log("position dropdownLeftPos *** ", left - parentPos);
 
+    // 60 is the sum of arrow left + arrow right + parent size (20 + 20 + 20)
     this.setState({
       [`leftPos${this.props.index}`]: left - parentPos + 60,
       [`topPos${this.props.index}`]: top
@@ -133,15 +134,7 @@ class NavbarItem extends Component {
   };
 
   onMouseEnterLink = () => {
-    const left = this.setItemRef.current.getBoundingClientRect().left;
-    const top = this.setItemRef.current.getBoundingClientRect().top;
-
-    this.setState({
-      leftPos: left,
-      topPos: top
-    });
-
-    this.props.onMouseEnterLink();
+    this.props.onMouseEnter(this.props.index);
   };
 
   shouldComponentUpdate(nextProps, nextState) {
