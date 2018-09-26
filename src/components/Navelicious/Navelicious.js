@@ -55,13 +55,13 @@ class Navelicious extends Component {
             <NavbarItem title="Developers">
               <DevelopersDropdown />
             </NavbarItem>
-            {/* <NavbarItem title="Company">
+            <NavbarItem title="Company">
               <CompanyDropdown />
             </NavbarItem>
 
             <NavbarItem title="On Click" onClick={this.logHello} />
             <NavbarItem title="Link A" linkTo="/" />
-            <NavbarItem title="A very long Link" linkTo="/" />
+            {/* <NavbarItem title="A very long Link" linkTo="/" />
             <NavbarItem title="Example">
               <ul>
                 <li>asas</li>

@@ -19,7 +19,7 @@ const NavbarItemTitle = styled.button`
   border: none;
   font-size: 16px;
   padding: 10px 20px;
-  color: ${props => props.titleColor}
+  color: ${props => props.titleColor};
   display: flex;
   justify-content: center;
   transition: opacity 250ms;
@@ -118,9 +118,13 @@ class NavbarItem extends Component {
     const itemHeight = this.setItemRef.current.getBoundingClientRect().height;
 
     // parentPos starts on arrow prev right pos
-    const parentPosLeft = document
-      .getElementsByClassName("prev")[0]
-      .getBoundingClientRect().right;
+    const parentPosLeft =
+      document
+        .getElementsByClassName("navelicious-navbar-list")[0]
+        .getBoundingClientRect().left || 0;
+
+    console.log("parentPosLeft", parentPosLeft);
+    console.log("left", left);
 
     // because absolute position is relative to the parent
     const childOffsetLeft = left - parentPosLeft;

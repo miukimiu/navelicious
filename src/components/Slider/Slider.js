@@ -104,12 +104,12 @@ export default class Slider extends Component {
     this.navbarListRef = React.createRef();
 
     this.state = {
+      arrows: true,
       currentIndex: 0,
       translateValue: 0,
       numberOfChildren: 0,
       sliderWidth: 0,
-      navbarListWidth: 0,
-      navbarListLeft: 0
+      navbarListContainerWidth: 0
     };
   }
 
@@ -121,31 +121,51 @@ export default class Slider extends Component {
       numberOfChildren: numberOfChildren
     });
 
-    this.getNavbarListWidth();
-    window.addEventListener("resize", this.getNavbarListWidth);
+    this.getArrows();
+    this.getnavbarListContainerWidth();
+    window.addEventListener("resize", this.getArrows);
+    window.addEventListener("resize", this.getnavbarListContainerWidth);
   }
 
   componentWillUnmount() {
-    window.removeEventListener("resize", this.getNavbarListWidth);
+    window.removeEventListener("resize", this.getArrows);
+    window.removeEventListener("resize", this.getnavbarListContainerWidth);
   }
 
-  getNavbarListWidth = () => {
+  getArrows = () => {
+    const sliderWidth =
+      this.sliderRef.current.getBoundingClientRect().width || 0;
+    const navbarListWidth = document
+      .getElementsByClassName("navelicious-navbar-list")[0]
+      .getBoundingClientRect().width;
+
+    if (navbarListWidth <= sliderWidth) {
+      this.setState({
+        arrows: false
+      });
+    } else {
+      this.setState({
+        arrows: true
+      });
+    }
+  };
+
+  getnavbarListContainerWidth = () => {
     const sliderRef = this.sliderRef.current;
-    const sliderArrowLeft = sliderRef.getElementsByClassName("prev")[0];
-    const sliderArrowRight = sliderRef.getElementsByClassName("next")[0];
-    const navbarListLeft = sliderRef.getBoundingClientRect().left;
+    const sliderArrowLeft = sliderRef.getElementsByClassName("prev")[0] || 0;
+    const sliderArrowRight = sliderRef.getElementsByClassName("next")[0] || 0;
 
     /* 
-    first I'm setting the navbarListWidth to Zero because if I try to resize it gets the previous size. 
+    first I'm setting the navbarListContainerWidth to Zero because if I try to resize it gets the previous size. 
     So, if I try to resize the window to a smaller positon it always get the current size and never gets
     below that. 
     To solve it, I'm setting the width to zero so I can actualy get the real size of the container.
     */
     this.setState({
-      navbarListWidth: 0
+      navbarListContainerWidth: 0
     });
 
-    const navbarListWidth =
+    const navbarListContainerWidth =
       sliderRef.offsetWidth -
       (sliderArrowLeft.offsetWidth + sliderArrowRight.offsetWidth);
 
@@ -156,8 +176,7 @@ export default class Slider extends Component {
     */
     setTimeout(() => {
       this.setState({
-        navbarListWidth: navbarListWidth,
-        navbarListLeft: navbarListLeft
+        navbarListContainerWidth: navbarListContainerWidth
       });
     }, 1000);
   };
@@ -167,7 +186,6 @@ export default class Slider extends Component {
     // We also want to reset currentIndex and translateValue, so we return
     // to the first image in the array.
     if (this.state.currentIndex === 0) {
-      console.log("currentIndex is equal to numberOfChildren");
       return this.setState({
         currentIndex: 0,
         translateValue: 0
@@ -188,15 +206,14 @@ export default class Slider extends Component {
     After that when I click the arrow I want to go back to position 0. So I want to set the 
     state translateValue to 0 
     */
-    const sliderArrowRight = document
-      .getElementsByClassName("next")[0]
-      .getBoundingClientRect().left;
+    const sliderArrowRight =
+      this.sliderRef.current.getBoundingClientRect().right || 0;
 
-    const innerNavList = document
+    const navList = document
       .getElementsByClassName("navelicious-navbar-list")[0]
       .getBoundingClientRect().right;
 
-    if (innerNavList <= sliderArrowRight) {
+    if (navList <= sliderArrowRight) {
       return this.setState({
         currentIndex: 0,
         translateValue: 0
@@ -218,17 +235,21 @@ export default class Slider extends Component {
 
   render() {
     const { children } = this.props;
+    const { arrows } = this.state;
 
     return (
       <ThemeConsumer>
         {context => (
           <SliderEl innerRef={this.sliderRef} background={context.background}>
-            <LeftArrow
-              goToPrevSlide={this.goToPrevSlide}
-              background={context.background}
-              color={context.arrowsColor}
-            />
-            <NavbarListContainer width={this.state.navbarListWidth}>
+            {arrows && (
+              <LeftArrow
+                goToPrevSlide={this.goToPrevSlide}
+                background={context.background}
+                color={context.arrowsColor}
+              />
+            )}
+
+            <NavbarListContainer width={this.state.navbarListContainerWidth}>
               <NavbarList
                 className="navelicious-navbar-list"
                 style={{
@@ -239,12 +260,13 @@ export default class Slider extends Component {
                 {children}
               </NavbarList>
             </NavbarListContainer>
-
-            <RightArrow
-              goToNextSlide={this.goToNextSlide}
-              background={context.background}
-              color={context.arrowsColor}
-            />
+            {arrows && (
+              <RightArrow
+                goToNextSlide={this.goToNextSlide}
+                background={context.background}
+                color={context.arrowsColor}
+              />
+            )}
           </SliderEl>
         )}
       </ThemeConsumer>
