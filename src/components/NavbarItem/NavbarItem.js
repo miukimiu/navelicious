@@ -39,7 +39,7 @@ const NavbarItemLink = styled.a`
   font-family: inherit;
   font-weight: normal;
   font-size: 16px;
-  padding: 10px 20px;
+  padding: 10px 0px;
   color: ${props => props.titleColor};
   display: flex;
   justify-content: center;
@@ -107,33 +107,35 @@ class NavbarItem extends Component {
       topPos: 0
     };
 
-    this.setItemRef = React.createRef();
+    this.navbarItemRef = React.createRef();
   }
 
   onMouseEnter = () => {
     const { index, onMouseEnter } = this.props;
     this.props.onMouseEnter(this.props.index);
 
-    const left = this.setItemRef.current.getBoundingClientRect().left;
-    const itemHeight = this.setItemRef.current.getBoundingClientRect().height;
+    const itemleftPos = this.navbarItemRef.current.getBoundingClientRect().left;
+    const itemCenterPos =
+      this.navbarItemRef.current.getBoundingClientRect().width / 2;
+    const itemHeight = this.navbarItemRef.current.getBoundingClientRect()
+      .height;
 
     // parentPos starts on arrow prev right pos
     const parentPosLeft =
-      document
-        .getElementsByClassName("navelicious-navbar-list")[0]
-        .getBoundingClientRect().left || 0;
+      document.getElementById("navelicious-section").getBoundingClientRect()
+        .left || 0;
 
-    console.log("parentPosLeft", parentPosLeft);
-    console.log("left", left);
+    /* 
+    Because absolute position is relative to the parent I get
+    the left position by subtracting the position left of the item
+    less the parent left position.
+    The element gets to the left of the item so I need to center it,
+    by adding half width of the item and half width of the DropdownRoot (20/2)
+    */
+    const childOffsetLeft = itemleftPos - parentPosLeft + itemCenterPos - 10;
 
-    // because absolute position is relative to the parent
-    const childOffsetLeft = left - parentPosLeft;
-
-    console.log(itemHeight);
-
-    // 60 is the sum of arrow left + arrow right + parent size (20 + 20 + 20)
     this.setState({
-      [`leftPos${this.props.index}`]: childOffsetLeft + 60,
+      [`leftPos${this.props.index}`]: childOffsetLeft,
       [`topPos${this.props.index}`]: itemHeight
     });
   };
@@ -161,8 +163,6 @@ class NavbarItem extends Component {
       className
     } = this.props;
 
-    // console.log("this.state", this.state);
-
     return (
       <ThemeConsumer>
         {context => (
@@ -173,7 +173,7 @@ class NavbarItem extends Component {
                 onMouseEnter={this.onMouseEnterLink}
                 titleColor={titleColor}
                 className={`navelicious-slide${index}`}
-                innerRef={this.setItemRef}
+                innerRef={this.navbarItemRef}
               >
                 {title}
               </NavbarItemLink>
@@ -185,7 +185,7 @@ class NavbarItem extends Component {
                   onClick={onClick}
                   titleColor={titleColor}
                   className={`navelicious-slide${index}`}
-                  innerRef={this.setItemRef}
+                  innerRef={this.navbarItemRef}
                 >
                   <React.Fragment>{link && <a>sadsd</a>}</React.Fragment>
                   <React.Fragment>{onClick && title}</React.Fragment>

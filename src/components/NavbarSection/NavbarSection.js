@@ -119,8 +119,6 @@ class NavbarSection extends Component {
       });
     });
 
-    console.log("arrowsColor", arrowsColor);
-
     return (
       <FlipperEl flipKey={currentIndex} {...tweenConfig} className={className}>
         <ThemeProvider value={{ arrowsColor: arrowsColor }}>
