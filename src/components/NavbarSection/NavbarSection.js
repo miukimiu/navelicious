@@ -33,7 +33,6 @@ class NavbarSection extends Component {
   };
 
   resetDropdownState = () => {
-    console.log("resetDropdownState");
     this.setState({
       activeIndices: [],
       animatingOut: false,
@@ -43,7 +42,6 @@ class NavbarSection extends Component {
   };
 
   onMouseEnter = i => {
-    console.log("onMouseEnter");
     if (this.state.activeIndices[this.state.activeIndices.length - 1] === i)
       return;
     if (this.animatingOutTimeout) {
@@ -58,7 +56,6 @@ class NavbarSection extends Component {
   };
 
   onMouseEnterDropdown = i => {
-    console.log("onMouseEnterDropdown");
     if (this.state.activeIndices[this.state.activeIndices.length - 1] === i)
       return;
     if (this.animatingOutTimeout) {
@@ -86,13 +83,11 @@ class NavbarSection extends Component {
   };
 
   onMouseLeaveDropdown = () => {
-    console.log("onMouseLeaveDropdown");
     this.setState({
       animatingOut: true
     });
 
     if (this.state.animatingOut) {
-      console.log("it's animating out drop");
       this.animatingOutTimeout = setTimeout(
         this.resetDropdownState,
         this.props.duration

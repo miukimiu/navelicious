@@ -457,7 +457,7 @@ class AnimatedNavbar extends Component {
     }));
   };
 
-  onMouseLeave = ev => {
+  onMouseLeave = () => {
     this.setState({
       animatingOut: true
     });
@@ -504,7 +504,6 @@ class AnimatedNavbar extends Component {
                     tweenConfig={this.props.tweenConfig}
                   >
                     {/* <CurrentDropdown /> */}
-                    zx`zx
                   </DropdownContainer>
                 )}
               </NavbarItem>

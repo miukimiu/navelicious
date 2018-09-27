@@ -38,7 +38,7 @@ class Navelicious extends Component {
   render() {
     return (
       <AppContainer>
-        <Navbar justify="space-between" background="white">
+        <Navbar justify="space-between" background="#aea8d3">
           <NavbarCustomSection>
             <Logo />
           </NavbarCustomSection>
