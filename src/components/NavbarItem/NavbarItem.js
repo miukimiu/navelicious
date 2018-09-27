@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import styled, { css } from "styled-components";
 import { Flipper, Flipped } from "react-flip-toolkit";
 import ScrollMenu from "react-horizontal-scrolling-menu";
+import memoize from "memoize-one";
 import CreatePortal from "../../core/CreatePortal";
 import { ThemeConsumer } from "../../core/ThemeContext";
 
@@ -39,7 +40,7 @@ const NavbarItemLink = styled.a`
   font-family: inherit;
   font-weight: normal;
   font-size: 16px;
-  padding: 10px 0px;
+  padding: 10px 20px;
   color: ${props => props.titleColor};
   display: flex;
   justify-content: center;
@@ -58,7 +59,7 @@ const DropdownSlot = styled.div`
   left: 50%;
   transform: translateX(-50%);
   perspective: 1500px;
-  z-index: 9999;
+  z-index: 9;
 `;
 
 const DropdownRoot = styled.div`
@@ -110,6 +111,11 @@ class NavbarItem extends Component {
     this.navbarItemRef = React.createRef();
   }
 
+  onMouseEnterDropdown = () => {
+    const { index, onMouseEnter } = this.props;
+    this.props.onMouseEnterDropdown(this.props.index);
+  };
+
   onMouseEnter = () => {
     const { index, onMouseEnter } = this.props;
     this.props.onMouseEnter(this.props.index);
@@ -142,6 +148,14 @@ class NavbarItem extends Component {
 
   onMouseEnterLink = () => {
     this.props.onMouseEnter(this.props.index);
+  };
+
+  onMouseLeave = () => {
+    this.props.onMouseLeave(this.props.index);
+  };
+
+  onMouseLeaveDropdown = () => {
+    this.props.onMouseLeaveDropdown(this.props.index);
   };
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -182,6 +196,7 @@ class NavbarItem extends Component {
                 <NavbarItemTitle
                   onMouseEnter={this.onMouseEnter}
                   onFocus={this.onMouseEnter}
+                  onMouseLeave={this.onMouseLeave}
                   onClick={onClick}
                   titleColor={titleColor}
                   className={`navelicious-slide${index}`}
@@ -199,6 +214,8 @@ class NavbarItem extends Component {
                         <DropdownRoot
                           leftPos={this.state[`leftPos${currentIndex}`]}
                           topPos={this.state[`topPos${currentIndex}`]}
+                          onMouseEnter={this.onMouseEnterDropdown}
+                          onMouseLeave={this.onMouseLeaveDropdown}
                         >
                           <Flipped flipId="dropdown-caret">
                             <Caret dropdownBackground={dropdownBackground} />

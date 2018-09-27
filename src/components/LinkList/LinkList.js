@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import styled, { keyframes, css } from "styled-components";
 
 const LinkListEl = styled.ul`
+  list-style: none;
+  padding-left: 0;
   li {
     margin-bottom: 1rem;
   }
@@ -10,6 +12,9 @@ const LinkListEl = styled.ul`
   li:last-of-type {
     margin-bottom: 0;
   }
+
+  text-decoration: none;
+  color: #6772e5;
 
   margin-left: ${props => (props.marginLeft ? props.marginLeft : 0)};
 `;

@@ -28,10 +28,12 @@ const FlipperEl = styled(Flipper)`
 class NavbarSection extends Component {
   state = {
     activeIndices: [],
-    animatingOut: false
+    animatingOut: false,
+    inDropdown: true
   };
 
   resetDropdownState = () => {
+    console.log("resetDropdownState");
     this.setState({
       activeIndices: [],
       animatingOut: false
@@ -40,6 +42,7 @@ class NavbarSection extends Component {
   };
 
   onMouseEnter = i => {
+    console.log("onMouseEnter");
     if (this.state.activeIndices[this.state.activeIndices.length - 1] === i)
       return;
     if (this.animatingOutTimeout) {
@@ -48,7 +51,23 @@ class NavbarSection extends Component {
     }
     this.setState(prevState => ({
       activeIndices: prevState.activeIndices.concat(i),
-      animatingOut: false
+      animatingOut: false,
+      inDropdown: false
+    }));
+  };
+
+  onMouseEnterDropdown = i => {
+    console.log("onMouseEnterDropdown");
+    if (this.state.activeIndices[this.state.activeIndices.length - 1] === i)
+      return;
+    if (this.animatingOutTimeout) {
+      clearTimeout(this.animatingOutTimeout);
+      this.resetDropdownState();
+    }
+    this.setState(prevState => ({
+      activeIndices: prevState.activeIndices.concat(i),
+      animatingOut: false,
+      inDropdown: true
     }));
   };
 
@@ -56,11 +75,48 @@ class NavbarSection extends Component {
     this.setState({
       animatingOut: true
     });
-    this.animatingOutTimeout = setTimeout(
-      this.resetDropdownState,
-      this.props.duration
-    );
+
+    if (this.state.animatingOut) {
+      console.log("it's animating out");
+      this.animatingOutTimeout = setTimeout(
+        this.resetDropdownState,
+        this.props.duration
+      );
+    }
   };
+
+  onMouseLeaveDropdown = () => {
+    console.log("onMouseLeaveDropdown");
+    this.setState({
+      animatingOut: true
+    });
+
+    if (this.state.animatingOut) {
+      console.log("it's animating out drop");
+      this.animatingOutTimeout = setTimeout(
+        this.resetDropdownState,
+        this.props.duration
+      );
+    }
+  };
+
+  // onMouseLeave = () => {
+  //   console.log("onMouseLeave");
+
+  //   // if enter dropdown
+
+  //   setTimeout(() => {
+  //     if (!this.state.inDropdown) {
+  //       console.log("Not in dropdown **");
+  //       // this.animatingOutTimeout = setTimeout(
+  //       //   this.resetDropdownState,
+  //       //   this.props.duration
+  //       // );
+  //     } else {
+  //       console.log("In dropdown **");
+  //     }
+  //   }, 1000);
+  // };
 
   onMouseEnterLink = () => {
     this.setState({
@@ -84,6 +140,12 @@ class NavbarSection extends Component {
 
     const { navArrows } = this.state;
 
+    console.log(
+      this.state.animatingOut,
+      this.state.activeIndices,
+      this.state.inDropdown
+    );
+
     const tweenConfig = {
       duration: duration,
       ease: ease
@@ -102,7 +164,6 @@ class NavbarSection extends Component {
       this.state.activeIndices[this.state.activeIndices.length - 2];
 
     if (typeof prevIndex === "number") {
-      // CurrentDropdown = navbarConfig[currentIndex].dropdown;
       direction = currentIndex > prevIndex ? "right" : "left";
     }
 
@@ -115,17 +176,17 @@ class NavbarSection extends Component {
         dropdownBackground,
         titleColor,
         onMouseEnter: this.onMouseEnter,
-        onMouseEnterLink: this.onMouseEnterLink
+        onMouseEnterLink: this.onMouseEnterLink,
+        onMouseEnterDropdown: this.onMouseEnterDropdown,
+        onMouseLeave: this.onMouseLeave,
+        onMouseLeaveDropdown: this.onMouseLeaveDropdown
       });
     });
 
     return (
       <FlipperEl flipKey={currentIndex} {...tweenConfig} className={className}>
         <ThemeProvider value={{ arrowsColor: arrowsColor }}>
-          <NavbarSectionEl
-            onMouseLeave={this.onMouseLeave}
-            id="navelicious-section"
-          >
+          <NavbarSectionEl id="navelicious-section">
             <Slider>{children}</Slider>
           </NavbarSectionEl>
         </ThemeProvider>

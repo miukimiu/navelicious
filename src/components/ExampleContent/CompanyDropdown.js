@@ -13,13 +13,14 @@ const Icon = styled.div`
   width: 13px;
   height: 13px;
   margin-right: 13px;
-  background-color: var(--blue);
-  opacity: 0.8;
+  background-color: pink;
+  border-radius: 50%;
+  opacity: 0.2;
   display: inline-block;
 `;
 
 const CompanyDropdown = () => (
-  <DropdownContent width="29rem">
+  <DropdownContent width="29rem" padding="20px">
     <DropdownSection data-first-dropdown-section>
       <ul>
         <HeadingLink>

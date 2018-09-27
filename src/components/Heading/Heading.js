@@ -8,7 +8,7 @@ const HeadingEl = styled.h3`
   font-size: 1.1rem;
   margin-top: 0;
   margin-bottom: ${props => (props.noMarginBottom ? 0 : "1rem")};
-  color: ${({ color }) => (color ? `var(--${color})` : "var(--blue)")};
+  color: ${({ color }) => (color ? `red` : "var(--blue)")};
 `;
 
 const Heading = ({ children, color }) => (

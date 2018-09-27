@@ -7,6 +7,7 @@ const NavbarEl = styled.div`
   display: flex;
   justify-content: ${props => props.justify};
   background: ${props => props.background};
+  z-index: 999;
 `;
 
 const Navbar = ({ children, justify, background, className }) => (

@@ -61,13 +61,13 @@ class Navelicious extends Component {
 
             <NavbarItem title="On Click" onClick={this.logHello} />
             <NavbarItem title="Link A" linkTo="/" />
-            {/* <NavbarItem title="A very long Link" linkTo="/" />
+            <NavbarItem title="A very long Link" linkTo="/" />
             <NavbarItem title="Example">
               <ul>
                 <li>asas</li>
               </ul>
             </NavbarItem>
-            <NavbarItem title="this another very long Link" linkTo="/" /> */}
+            <NavbarItem title="this another very long Link" linkTo="/" />
           </NavbarSection>
         </Navbar>
       </AppContainer>
