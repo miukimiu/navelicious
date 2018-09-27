@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import styled, { css } from "styled-components";
 import { Flipper, Flipped } from "react-flip-toolkit";
 import ScrollMenu from "react-horizontal-scrolling-menu";
-import memoize from "memoize-one";
 import CreatePortal from "../../core/CreatePortal";
 import { ThemeConsumer } from "../../core/ThemeContext";
 
@@ -68,9 +67,10 @@ const DropdownRoot = styled.div`
   flex-direction: column;
   align-items: center;
   position: absolute;
-  top: ${props => props.topPos}px;
+  top: ${props => props.topPos - 5}px;
   left: ${props => props.leftPos}px;
-  width: 20px;
+  width: 300px;
+  /* background: red; */
 `;
 
 const Caret = styled.div`
@@ -84,6 +84,7 @@ const Caret = styled.div`
   position: relative;
   /* prevent any gap in between caret and main dropdown */
   top: 1px;
+  margin-top: -10px;
 `;
 
 const DropdownBackground = styled.div`
@@ -91,10 +92,10 @@ const DropdownBackground = styled.div`
   background-color: ${props => props.dropdownBackground};
   border-radius: 4px;
   overflow: hidden;
-  /* delete the width after */
-  min-width: 400px;
+  min-width: 300px;
   min-height: 200px;
-  position: relative;
+  max-height: 300px;
+  overflow: auto;
   box-shadow: 0 50px 100px rgba(50, 50, 93, 0.1),
     0 15px 35px rgba(50, 50, 93, 0.15), 0 5px 15px rgba(0, 0, 0, 0.1);
 `;
@@ -138,7 +139,7 @@ class NavbarItem extends Component {
     The element gets to the left of the item so I need to center it,
     by adding half width of the item and half width of the DropdownRoot (20/2)
     */
-    const childOffsetLeft = itemleftPos - parentPosLeft + itemCenterPos - 10;
+    const childOffsetLeft = itemleftPos - parentPosLeft + itemCenterPos - 150;
 
     this.setState({
       [`leftPos${this.props.index}`]: childOffsetLeft,
@@ -196,7 +197,7 @@ class NavbarItem extends Component {
                 <NavbarItemTitle
                   onMouseEnter={this.onMouseEnter}
                   onFocus={this.onMouseEnter}
-                  onMouseLeave={this.onMouseLeave}
+                  // onMouseLeave={this.onMouseLeave}
                   onClick={onClick}
                   titleColor={titleColor}
                   className={`navelicious-slide${index}`}
@@ -215,7 +216,7 @@ class NavbarItem extends Component {
                           leftPos={this.state[`leftPos${currentIndex}`]}
                           topPos={this.state[`topPos${currentIndex}`]}
                           onMouseEnter={this.onMouseEnterDropdown}
-                          onMouseLeave={this.onMouseLeaveDropdown}
+                          // onMouseLeave={this.onMouseLeaveDropdown}
                         >
                           <Flipped flipId="dropdown-caret">
                             <Caret dropdownBackground={dropdownBackground} />

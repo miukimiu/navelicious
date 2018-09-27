@@ -29,14 +29,15 @@ class NavbarSection extends Component {
   state = {
     activeIndices: [],
     animatingOut: false,
-    inDropdown: true
+    inDropdown: false
   };
 
   resetDropdownState = () => {
     console.log("resetDropdownState");
     this.setState({
       activeIndices: [],
-      animatingOut: false
+      animatingOut: false,
+      inDropdown: false
     });
     delete this.animatingOutTimeout;
   };
@@ -72,17 +73,16 @@ class NavbarSection extends Component {
   };
 
   onMouseLeave = () => {
+    console.log("onMouseLeave");
+
     this.setState({
       animatingOut: true
     });
 
-    if (this.state.animatingOut) {
-      console.log("it's animating out");
-      this.animatingOutTimeout = setTimeout(
-        this.resetDropdownState,
-        this.props.duration
-      );
-    }
+    this.animatingOutTimeout = setTimeout(
+      this.resetDropdownState,
+      this.props.duration
+    );
   };
 
   onMouseLeaveDropdown = () => {
@@ -99,24 +99,6 @@ class NavbarSection extends Component {
       );
     }
   };
-
-  // onMouseLeave = () => {
-  //   console.log("onMouseLeave");
-
-  //   // if enter dropdown
-
-  //   setTimeout(() => {
-  //     if (!this.state.inDropdown) {
-  //       console.log("Not in dropdown **");
-  //       // this.animatingOutTimeout = setTimeout(
-  //       //   this.resetDropdownState,
-  //       //   this.props.duration
-  //       // );
-  //     } else {
-  //       console.log("In dropdown **");
-  //     }
-  //   }, 1000);
-  // };
 
   onMouseEnterLink = () => {
     this.setState({
@@ -140,11 +122,7 @@ class NavbarSection extends Component {
 
     const { navArrows } = this.state;
 
-    console.log(
-      this.state.animatingOut,
-      this.state.activeIndices,
-      this.state.inDropdown
-    );
+    console.log(this.state.animatingOut, this.state.activeIndices);
 
     const tweenConfig = {
       duration: duration,
@@ -186,7 +164,10 @@ class NavbarSection extends Component {
     return (
       <FlipperEl flipKey={currentIndex} {...tweenConfig} className={className}>
         <ThemeProvider value={{ arrowsColor: arrowsColor }}>
-          <NavbarSectionEl id="navelicious-section">
+          <NavbarSectionEl
+            id="navelicious-section"
+            onMouseLeave={this.onMouseLeave}
+          >
             <Slider>{children}</Slider>
           </NavbarSectionEl>
         </ThemeProvider>
