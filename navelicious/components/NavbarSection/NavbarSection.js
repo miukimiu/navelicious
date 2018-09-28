@@ -70,8 +70,6 @@ class NavbarSection extends Component {
   };
 
   onMouseLeave = () => {
-    console.log("onMouseLeave");
-
     this.setState({
       animatingOut: true
     });
@@ -116,8 +114,6 @@ class NavbarSection extends Component {
     } = this.props;
 
     const { navArrows } = this.state;
-
-    console.log(this.state.animatingOut, this.state.activeIndices);
 
     const tweenConfig = {
       duration: duration,

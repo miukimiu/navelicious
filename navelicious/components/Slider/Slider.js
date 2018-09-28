@@ -14,12 +14,19 @@ const SliderEl = styled.div`
     margin: 0 auto;
     cursor: pointer;
     transition: 0.6s ease;
-    padding: 10px 0;
-    height: 100%;
+    width: 20px;
+    height: 20px;
+    position: relative;
 
     > div {
       align-items: center;
       line-height: 1;
+      width: 14px;
+      height: 14px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
     }
   }
   .prev:hover,
@@ -39,7 +46,8 @@ const NavbarList = styled.ul`
   padding: 0;
   align-items: center;
   white-space: nowrap;
-  display: inline-flex;
+  /* IE 11 needs this inline block :( */
+  display: inline-block;
 
   li {
     display: inline-flex;
@@ -47,8 +55,6 @@ const NavbarList = styled.ul`
 `;
 
 const BackArrow = styled.div`
-  width: 14px;
-  height: 14px;
   background: ${props => props.background};
   z-index: 9999;
 
@@ -58,8 +64,6 @@ const BackArrow = styled.div`
 `;
 
 const NextArrow = styled.div`
-  width: 14px;
-  height: 14px;
   background: ${props => props.background};
 
   path {
@@ -133,14 +137,14 @@ export default class Slider extends Component {
     });
 
     this.getArrows();
-    this.getnavbarListContainerWidth();
+    this.getNavbarListContainerWidth();
     window.addEventListener("resize", this.getArrows);
-    window.addEventListener("resize", this.getnavbarListContainerWidth);
+    window.addEventListener("resize", this.getNavbarListContainerWidth);
   }
 
   componentWillUnmount() {
     window.removeEventListener("resize", this.getArrows);
-    window.removeEventListener("resize", this.getnavbarListContainerWidth);
+    window.removeEventListener("resize", this.getNavbarListContainerWidth);
   }
 
   getArrows = () => {
@@ -161,7 +165,7 @@ export default class Slider extends Component {
     }
   };
 
-  getnavbarListContainerWidth = () => {
+  getNavbarListContainerWidth = () => {
     const sliderRef = this.sliderRef.current;
     const sliderArrowLeft = sliderRef.getElementsByClassName("prev")[0] || 0;
     const sliderArrowRight = sliderRef.getElementsByClassName("next")[0] || 0;
@@ -170,7 +174,7 @@ export default class Slider extends Component {
     first I'm setting the navbarListContainerWidth to Zero because if I try to resize it gets the previous size. 
     So, if I try to resize the window to a smaller positon it always get the current size and never gets
     below that. 
-    To solve it, I'm setting the width to zero so I can actualy get the real size of the container.
+    To solve this, I'm setting the width to zero so I can actualy get the real size of the container.
     */
     this.setState({
       navbarListContainerWidth: 0

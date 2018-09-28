@@ -9,6 +9,8 @@ import { ThemeConsumer } from "../../core/ThemeContext";
 const NavbarItemEl = styled.li`
   position: relative;
   cursor: pointer;
+  margin: 0;
+  padding: 0;
 `;
 
 const NavbarItemTitle = styled.button`
@@ -66,7 +68,7 @@ const DropdownRoot = styled.div`
   flex-direction: column;
   align-items: center;
   position: absolute;
-  top: ${props => props.topPos - 5}px;
+  top: ${props => props.topPos}px;
   left: ${props => props.leftPos}px;
   width: 300px;
   /* background: red; */
@@ -136,10 +138,15 @@ class NavbarItem extends Component {
     the left position by subtracting the position left of the item
     less the parent left position.
     The element gets to the left of the item so I need to center it,
-    by adding half width of the item and half width of the DropdownRoot (20/2)
+    by adding half width of the item and half width of the DropdownRoot (300/2)
     */
     const childOffsetLeft = itemleftPos - parentPosLeft + itemCenterPos - 150;
 
+    /*
+    The top positon of the dropwond is the height of the hovered item 
+    */
+
+    console.log("itemHeight", itemHeight);
     this.setState({
       [`leftPos${this.props.index}`]: childOffsetLeft,
       [`topPos${this.props.index}`]: itemHeight
