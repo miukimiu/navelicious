@@ -17,6 +17,7 @@ const SliderEl = styled.div`
     width: 20px;
     height: 20px;
     position: relative;
+    z-index: 1;
 
     > div {
       align-items: center;
