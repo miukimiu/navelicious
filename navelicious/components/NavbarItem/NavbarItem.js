@@ -169,7 +169,6 @@ class NavbarItem extends Component {
       dropdownBackground,
       children,
       index,
-      link,
       onClick,
       linkTo,
       onMouseEnterLink,
@@ -202,14 +201,12 @@ class NavbarItem extends Component {
                   className={`navelicious-slide${index}`}
                   innerRef={this.navbarItemRef}
                 >
-                  <React.Fragment>{link && <a>sadsd</a>}</React.Fragment>
                   <React.Fragment>{onClick && title}</React.Fragment>
-                  <React.Fragment>{!link && !onClick && title}</React.Fragment>
+                  <React.Fragment>{!onClick && title}</React.Fragment>
                 </NavbarItemTitle>
-                <DropdownSlot>
-                  {currentIndex === index &&
-                    !link &&
-                    !onClick && (
+                {currentIndex === index &&
+                  !onClick && (
+                    <DropdownSlot>
                       <CreatePortal>
                         <DropdownRoot
                           leftPos={this.state[`leftPos${currentIndex}`]}
@@ -231,8 +228,8 @@ class NavbarItem extends Component {
                           </Flipped>
                         </DropdownRoot>
                       </CreatePortal>
-                    )}
-                </DropdownSlot>
+                    </DropdownSlot>
+                  )}
               </React.Fragment>
             )}
           </NavbarItemEl>

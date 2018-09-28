@@ -18,7 +18,7 @@
     "node": ">=4"
   },
   "scripts": {
-    "build": "rimraf lib/* && babel src -d lib",
+    "build": "rimraf lib/* && babel navelicious -d lib",
     "styleguide": "styleguidist server",
     "styleguide:build": "styleguidist build"
   },

@@ -18,13 +18,14 @@ import {
 } from '../../../navelicious';
 
 const IndexHeadContainer = styled.div`
-  background: ${props => props.theme.brand};
-  padding: ${props => props.theme.sitePadding};
+  background: ${props => props.theme.secondary};
   text-align: center;
+  padding: 0 20px 80px;
 `;
 
 const Hero = styled.div`
-  padding: 50px 0;
+  padding: 40px 20px 20px;
+  color: white;
   & > h1 {
     font-weight: 600;
   }
@@ -45,7 +46,7 @@ const NavbarContainer = styled.div`
   background: ${props => props.theme.brand};
   display: flex;
   flex-direction: column;
-  min-height: 200px;
+  min-height: 100px;
   max-width: 1000px;
   margin: 0 auto;
   padding: 20px;
@@ -60,7 +61,15 @@ const Logo = styled.div`
   margin: 20px;
 `;
 
+const NavbarEl = styled(Navbar)`
+  background: ${props => props.theme.brand};
+`;
+
 class Index extends React.Component {
+  logHello = () => {
+    console.log('hello!');
+  };
+
   render() {
     const allSEOMarkdown = this.props.data.allMarkdown.edges;
 
@@ -72,12 +81,11 @@ class Index extends React.Component {
           <IndexHeadContainer>
             <Navigation />
             <Hero>
-              <img src={config.siteLogo} width="150px" alt="" />
               <h1>{config.siteTitle}</h1>
               <h4>{config.siteDescription}</h4>
             </Hero>
             <NavbarContainer>
-              <Navbar justify="space-between" background="#aea8d3">
+              <NavbarEl justify="space-between">
                 <NavbarCustomSection>
                   <Logo />
                 </NavbarCustomSection>
@@ -85,8 +93,8 @@ class Index extends React.Component {
                   ease="easeOutExpo"
                   duration={500}
                   dropdownBackground="white"
-                  titleColor="black"
-                  arrowsColor="red"
+                  titleColor="white"
+                  arrowsColor="white"
                 >
                   <NavbarItem title="Products">
                     <ProductsDropdown />
@@ -108,7 +116,7 @@ class Index extends React.Component {
                   </NavbarItem>
                   <NavbarItem title="this another very long Link" linkTo="/" />
                 </NavbarSection>
-              </Navbar>
+              </NavbarEl>
             </NavbarContainer>
           </IndexHeadContainer>
           <BodyContainer>
