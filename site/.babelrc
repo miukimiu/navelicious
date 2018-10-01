@@ -1,0 +1,3 @@
+{
+  "plugins": ["lodash", "babel-plugin-styled-components"]
+}
