@@ -1,5 +1,4 @@
 import React, { Component, Children } from "react";
-import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import styled, { css } from "styled-components";
 import { Flipper, Flipped } from "react-flip-toolkit";

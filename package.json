@@ -1,8 +1,7 @@
 {
   "name": "navelicious",
   "description": "A kind of stripe navbar that you can easily customise",
-  "version": "0.0.1",
-  "private": true,
+  "version": "0.0.4",
   "homepage": "https://github.com/styleguidist/react-styleguidist",
   "main": "lib/index.js",
   "author": {
@@ -19,32 +18,24 @@
   },
   "scripts": {
     "build": "rimraf lib/* && babel navelicious -d lib",
-    "styleguide": "styleguidist server",
-    "styleguide:build": "styleguidist build"
+    "dev": "cd site && gatsby develop"
   },
   "dependencies": {
-    "dog-names": "^1.0.2",
-    "lodash": "^4.17.5",
-    "prop-types": "^15.6.1",
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1",
-    "react-styleguidist": "^7.1.0"
+    "prop-types": "^15.6.2",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
+    "react-flip-toolkit": "^5.0.1",
+    "styled-components": "^3.4.9"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.4",
+    "@babel/cli": "^7.1.2",
+    "@babel/core": "^7.1.2",
+    "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-plugin-styled-components": "^1.8.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-react": "^6.24.1",
-    "css-loader": "^0.28.11",
-    "file-loader": "^1.1.11",
-    "memoize-one": "^4.0.2",
-    "react-flip-toolkit": "^4.0.9",
-    "style-loader": "^0.21.0",
-    "styled-components": "^3.4.6",
-    "url-loader": "^0.6.2",
-    "webpack": "^4.16.1"
+    "babel-preset-minify": "^0.5.0",
+    "rimraf": "^2.6.2"
   }
 }
