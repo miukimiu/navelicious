@@ -1,0 +1,8 @@
+{
+  "alias": ["navelicious"],
+  "type": "static",
+  "static": {
+    "public": "site/build"
+  },
+  "files": ["site/build"]
+}

@@ -17,8 +17,8 @@
     "node": ">=4"
   },
   "scripts": {
-    "build": "rimraf lib/* && babel navelicious -d lib",
-    "dev": "cd site && gatsby develop"
+    "build": "rimraf lib/* && babel site/src/navelicious -d lib",
+    "dev": "cd site && npm run start"
   },
   "dependencies": {
     "prop-types": "^15.6.2",
