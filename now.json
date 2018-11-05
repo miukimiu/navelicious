@@ -2,7 +2,7 @@
   "alias": ["navelicious"],
   "type": "static",
   "static": {
-    "public": "site/build"
+    "public": "build"
   },
-  "files": ["site/build"]
+  "files": ["build"]
 }
