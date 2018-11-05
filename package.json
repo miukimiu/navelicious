@@ -2,7 +2,6 @@
   "name": "navelicious",
   "description": "A kind of stripe navbar that you can easily customise",
   "version": "0.0.4",
-  "homepage": "https://github.com/styleguidist/react-styleguidist",
   "main": "lib/index.js",
   "author": {
     "name": "Miuki Miu",
@@ -10,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/styleguidist/react-styleguidist.git"
+    "url": "https://github.com/miukimiu/navelicious.git"
   },
   "license": "MIT",
   "engines": {
@@ -40,6 +39,7 @@
     "babel-plugin-styled-components": "^1.8.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-preset-minify": "^0.5.0",
+    "react-markdown": "^4.0.3",
     "rimraf": "^2.6.2"
   },
   "eslintConfig": {

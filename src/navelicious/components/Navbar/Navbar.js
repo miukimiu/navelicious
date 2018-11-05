@@ -20,7 +20,7 @@ const Navbar = ({ children, justify, background, className }) => (
 
 Navbar.defaultProps = {
   justify: "center",
-  background: "#E8E8E8"
+  background: "#999"
 };
 
 Navbar.propTypes = {

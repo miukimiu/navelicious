@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import theme from "../config/theme";
 
 import {
   Navbar,
@@ -15,7 +16,7 @@ const SiteContainer = styled.div`
 `;
 
 const NavbarContainer = styled.div`
-  background: #25263e;
+  background: ${props => props.theme.navBg};
   display: flex;
   flex-direction: column;
   min-height: 100px;
@@ -33,20 +34,18 @@ const Logo = styled.div`
   margin: 20px;
 `;
 
-const NavbarEl = styled(Navbar)`
-  background: ${props => props.theme.navBg};
-`;
-
-const NavExample = () => {
+const NavExample = props => {
   const logHello = () => {
     console.log("Hello!");
   };
 
+  console.log("here ->", theme);
+
   return (
     <SiteContainer>
-      <h1>Hi now!</h1>
+      <h1>Navelicious</h1>
       <NavbarContainer>
-        <NavbarEl justify="space-between">
+        <Navbar justify="space-between" background={theme.navBg}>
           <NavbarCustomSection>
             <Logo />
           </NavbarCustomSection>
@@ -75,7 +74,7 @@ const NavExample = () => {
             </NavbarItem>
             <NavbarItem title="this another very long Link" linkTo="/" />
           </NavbarSection>
-        </NavbarEl>
+        </Navbar>
       </NavbarContainer>
     </SiteContainer>
   );
