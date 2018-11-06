@@ -1,7 +1,7 @@
 {
   "name": "navelicious",
   "description": "A kind of stripe navbar that you can easily customise",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "main": "lib/index.js",
   "author": {
     "name": "Miuki Miu",
