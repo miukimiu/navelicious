@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import { Flipper } from 'react-flip-toolkit';
-import { ThemeProvider } from '../../core/ThemeContext';
-import Slider from '../Slider/Slider';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import { Flipper } from "react-flip-toolkit";
+import { ThemeProvider } from "../../core/ThemeContext";
+import Slider from "../Slider/Slider";
 
 const NavbarSectionEl = styled.section`
   margin: auto;
@@ -153,10 +153,10 @@ class NavbarSection extends Component {
 
 NavbarSection.defaultProps = {
   duration: 500,
-  ease: 'easeOutExpo',
-  activeColor: 'red',
-  titleColor: 'green',
-  dropdownBackground: 'white',
+  ease: "easeOutExpo",
+  activeColor: "blue",
+  titleColor: "green",
+  dropdownBackground: "white",
   animatingOut: false
 };
 

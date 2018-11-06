@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
-import PropTypes from 'prop-types';
-import { Flipped } from 'react-flip-toolkit';
-import CreatePortal from '../../core/CreatePortal';
-import { ThemeConsumer } from '../../core/ThemeContext';
+import React, { Component } from "react";
+import styled from "styled-components";
+import PropTypes from "prop-types";
+import { Flipped } from "react-flip-toolkit";
+import CreatePortal from "../../core/CreatePortal";
+import { ThemeConsumer } from "../../core/ThemeContext";
 
 const NavbarItemEl = styled.li`
   position: relative;
@@ -70,7 +70,6 @@ const DropdownRoot = styled.div`
   top: ${props => props.topPos}px;
   left: ${props => props.leftPos}px;
   width: 300px;
-  /* background: red; */
 `;
 
 const Caret = styled.div`
@@ -127,7 +126,7 @@ class NavbarItem extends Component {
 
     // parentPos starts on arrow prev right pos
     const parentPosLeft =
-      document.getElementById('navelicious-section').getBoundingClientRect()
+      document.getElementById("navelicious-section").getBoundingClientRect()
         .left || 0;
 
     /* 
@@ -172,7 +171,6 @@ class NavbarItem extends Component {
       index,
       onClick,
       linkTo,
-      titleColor,
       className,
       active
     } = this.props;
@@ -186,7 +184,7 @@ class NavbarItem extends Component {
                 href={linkTo}
                 onMouseEnter={this.onMouseEnterLink}
                 activeColor={context.activeColor}
-                titleColor={titleColor}
+                titleColor={context.titleColor}
                 className={`navelicious-slide${index}`}
                 innerRef={this.navbarItemRef}
                 active={active}

@@ -8,7 +8,7 @@ const theme = {
   siteTextColor: "#314659",
   siteTextColorSecondary: "#697b8c",
   borderRadiusSm: "4px",
-  fontSizeBase: "14px",
+  fontSizeBase: "16px",
   lineHeightBase: 1.5,
   codeFamily: `"SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace`
 };

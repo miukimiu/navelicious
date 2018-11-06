@@ -1,9 +1,13 @@
 import styled from "styled-components";
 
 const MarkdownContainer = styled.div`
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 20px;
+
   .markdown {
     color: ${props => props.theme.siteTextColor};
-    font-size: 14px;
+    font-size: ${props => props.theme.fontSizeBase};
     line-height: 2;
   }
 
@@ -21,7 +25,6 @@ const MarkdownContainer = styled.div`
     font-weight: 500;
     margin-bottom: 20px;
     margin-top: 8px;
-    font-family: "Source Sans Pro";
     font-size: 30px;
     font-variant: tabular-nums;
     line-height: 38px;
@@ -42,10 +45,9 @@ const MarkdownContainer = styled.div`
   .markdown h5,
   .markdown h6 {
     color: ${props => props.theme.siteHeadingColor};
-    font-family: "Source Sans Pro";
     font-variant: tabular-nums;
     margin: 1.6em 0 0.6em;
-    font-weight: 500;
+    font-weight: 600;
     clear: both;
   }
 
@@ -107,8 +109,6 @@ const MarkdownContainer = styled.div`
   .markdown pre {
     border-radius: ${props => props.theme.borderRadiusSm};
     background: #f2f4f5;
-    font-family: "Lucida Console", Consolas, Monaco, "Andale Mono",
-      "Ubuntu Mono", monospace;
   }
 
   .markdown pre code {
@@ -116,7 +116,7 @@ const MarkdownContainer = styled.div`
     background: #f2f4f5;
     margin: 0;
     padding: 0;
-    font-size: 14px;
+    font-size: ${props => props.theme.fontSizeBase};
     color: ${props => props.theme.siteTextColor};
     overflow: auto;
   }
@@ -169,7 +169,6 @@ const MarkdownContainer = styled.div`
   .markdown table {
     font-size: ${props => props.theme.fontSizeBase};
     line-height: ${props => props.theme.lineHeightBase};
-    font-family: ${props => props.theme.codeFamily};
     border-width: 0;
     margin: 2em 0;
     th,
@@ -182,9 +181,9 @@ const MarkdownContainer = styled.div`
       border-width: 0 0 2px 0;
     }
     td:first-child {
-      font-weight: 500;
+      font-weight: 600;
       width: 20%;
-      color: @blue-9;
+      color: ${props => props.theme.secondary};
     }
     td:nth-child(3) {
       width: 22%;

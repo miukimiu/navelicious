@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import theme from "../config/theme";
-
+import CustomDropdown from "./CustomDropdown";
 import {
   Navbar,
   NavbarSection,
@@ -9,10 +9,15 @@ import {
   NavbarCustomSection
 } from "../navelicious";
 
-const SiteContainer = styled.div`
+const ExampleContainer = styled.div`
   background: ${props => props.theme.secondary};
-  height: 400px;
+  height: 300px;
   padding: 40px;
+
+  h1 {
+    text-align: center;
+    color: white;
+  }
 `;
 
 const NavbarContainer = styled.div`
@@ -39,10 +44,8 @@ const NavExample = props => {
     console.log("Hello!");
   };
 
-  console.log("here ->", theme);
-
   return (
-    <SiteContainer>
+    <ExampleContainer>
       <h1>Navelicious</h1>
       <NavbarContainer>
         <Navbar justify="space-between" background={theme.navBg}>
@@ -57,26 +60,26 @@ const NavExample = props => {
             arrowsColor="white"
           >
             <NavbarItem title="Products">
-              <h1>Yep</h1>
+              <CustomDropdown title="Products Dropwdown" />
             </NavbarItem>
             <NavbarItem title="Developers">
-              <h1>Yep</h1>
+              <CustomDropdown title="Developers Dropdown" />
             </NavbarItem>
             <NavbarItem title="Company">
-              <h1>Yep</h1>
+              <CustomDropdown title="Company Dropdown" />
             </NavbarItem>
 
             <NavbarItem title="On Click" onClick={logHello} />
-            <NavbarItem title="Link A" linkTo="/" />
+            <NavbarItem title="Link" linkTo="/" />
             <NavbarItem title="A very long Link" linkTo="/" />
             <NavbarItem title="Example">
-              <h1>Yep</h1>
+              <CustomDropdown title="Example Dropdown" />
             </NavbarItem>
-            <NavbarItem title="this another very long Link" linkTo="/" />
+            <NavbarItem title="This is another very long Link" linkTo="/" />
           </NavbarSection>
         </Navbar>
       </NavbarContainer>
-    </SiteContainer>
+    </ExampleContainer>
   );
 };
 
