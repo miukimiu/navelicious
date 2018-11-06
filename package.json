@@ -20,7 +20,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "build-component": "rimraf lib/* && babel src/navelicious -d lib"
+    "npm-build": "rimraf lib/* && babel src/navelicious -d lib",
+    "prepublish": "npm run npm-build"
   },
   "dependencies": {
     "prop-types": "^15.6.2",
