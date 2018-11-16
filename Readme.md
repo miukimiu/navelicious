@@ -1,6 +1,10 @@
 # Navelicious
 
-Sometimes you need that fancy navbar!!
+Sometimes you need that fancy navbar! Similar to the stripe.com top navbar but it creates a slider when you have many items.
+
+# Navelicious
+
+I built this component to use in one project but I ended up not using so I decided to make it open source.
 
 # Demo & Documentation
 
